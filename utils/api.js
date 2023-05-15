@@ -14,14 +14,12 @@ export async function getUser() {
 // our api call, use this
 export async function fetchDataMySQL(query) {
     const res = await axios.get(`http://34.124.172.195:3001/mysql/query/${query}`)
-    // if (res.status === 200) {
-    //     return res.data
-    // }
-    // else {
-    //     return "Error"
-    // }
-    // console.log(res)
-    return res.data
+    if (res.status === 200) {
+        return res.data
+    }
+    else {
+        return "Error"
+    }
 }
 
 export async function fetchDataCassandra(query) {
