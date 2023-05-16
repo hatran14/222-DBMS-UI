@@ -101,11 +101,12 @@ const RenderBenchmark = (props: any) => {
         time: ''
     })
 
-    const handleClicked = (e: any) => {
+    const handleClicked = (e: any, index: number) => {
         e.preventDefault()
         // console.log(e.target.value)
-        const value = e.target.value.split(',')
-        setInput({ query: value[0], time: value[1] })
+        // const value = e.target.value.split(',')
+        const value = query[index]
+        setInput({ query: value.query, time: value.time })
     }
 
     const handleOnChange = (e: any) => {
@@ -133,8 +134,10 @@ const RenderBenchmark = (props: any) => {
 
     const handleSubmit = (e: any) => {
         e.preventDefault()
+        console.log(newQuery)
         setQuery([...query, newQuery])
-        setNewQuery({ query: '', time: '' })
+        console.log(query)
+        // setNewQuery({ query: '', time: '' })
     }
 
     const handleDelete = (e: any) => {
@@ -165,7 +168,7 @@ const RenderBenchmark = (props: any) => {
                         {
                             query.map((item, index) => (
                                 <li key={index} className='w-1/4 mb-3'>
-                                    <button type='button' className='mybtn' value={[item.query, item.time]} onClick={handleClicked}>
+                                    <button type='button' className='mybtn' onClick={(e) => {handleClicked(e, index)}}>
                                         Testcase {index + 1}
                                     </button>
                                 </li>
