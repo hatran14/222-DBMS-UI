@@ -18,3 +18,9 @@ a {
 * {
   box-sizing: border-box;
 }
+
+@layer components {
+  .mybtn {
+    @apply bg-blue-400 hover:bg-blue-600 active:bg-blue-500 rounded-lg px-2 py-2 text-sm w-[8rem];
+  }
+}
