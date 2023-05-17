@@ -10,7 +10,7 @@ const Home: NextPage = () => {
     const { push } = useRouter()
     useEffect(() => {
         push('/home');
-    }, []);
+    });
     return (
         <div className={styles.container}>
         </div>

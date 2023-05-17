@@ -19,7 +19,7 @@ const Product = () => {
         fetchDataMySQL(query).then(data => {
             setProduct(data)
         })
-    }, [])
+    })
 
     // console.log(product);
 
