@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getUser } from '../../../utils/api'
+import { fetchDataCassandra } from '../../../utils/api';
 
 const Customer = () => {
     const [user, setUser] = useState([
@@ -7,15 +7,15 @@ const Customer = () => {
             id: '',
             name: '',
             email: '',
-            phone: ''
+            mobile: ''
         }
     ]);
-
+    const query = 'SELECT * FROM user'
     useEffect(() => {
-        getUser().then(data => {
+        fetchDataCassandra(query).then(data => {
             setUser(data)
         })
-    }, [])
+    }, [query])
 
     console.log(user);
 
@@ -48,9 +48,7 @@ const Customer = () => {
                         <th scope="col" className="px-6 py-3">
                             Phone
                         </th>
-                        <th scope="col" className="px-6 py-3">
-                            Action
-                        </th>
+                       
                     </tr>
                 </thead>
                 <tbody>
@@ -70,14 +68,9 @@ const Customer = () => {
                                     {user.email}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {user.phone}
+                                    {user.mobile}
                                 </td>
-                                <td className="px-6 py-4">
-                                    <div className='flex flex-row gap-5'>
-                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Detail</a>
-                                    </div>
-                                </td>
+                                
                             </tr>
                         ))
                     }
