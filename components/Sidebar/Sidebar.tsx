@@ -33,6 +33,9 @@ const Sidebar = () => {
                                     <Link href="/mysql/product" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</Link>
                                 </li>
                                 <li>
+                                    <Link href="/mysql/order" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Orders</Link>
+                                </li>
+                                <li>
                                     <Link href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">etc...</Link>
                                 </li>
                             </ul>
@@ -49,6 +52,9 @@ const Sidebar = () => {
                                 </li>
                                 <li>
                                     <Link href="/cassandra/product" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</Link>
+                                </li>
+                                <li>
+                                    <Link href="/cassandra/order" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Orders</Link>
                                 </li>
                                 <li>
                                     <Link href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">etc...</Link>
