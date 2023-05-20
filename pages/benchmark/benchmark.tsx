@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import TextareaAutosize from 'react-textarea-autosize';
 import { fetchBenchmarkCassandra, fetchBenchmarkMySQL, fetchDataCassandra } from '../../utils/api'
+import { time } from 'console';
 
 const RenderModal = (props: any) => {
     return (
@@ -14,7 +16,7 @@ const RenderModal = (props: any) => {
                             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                                 Result
                             </h3>
-                            <button onClick={() => {props.setShowModal(false)}} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+                            <button onClick={() => { props.setShowModal(false) }} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
                                 <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
                                 <span className="sr-only">Close modal</span>
                             </button>
@@ -32,7 +34,7 @@ const RenderModal = (props: any) => {
 
 const RenderResult = (data: any) => {
     const myData = data.data
-    const [key, getKey] = useState(Object.keys(myData[0]))
+    const [key, getKey] = useState(Object?.keys(myData[0]))
     console.log(myData)
     return (
         <div>
@@ -65,29 +67,12 @@ const RenderResult = (data: any) => {
 }
 
 const RenderBenchmark = (props: any) => {
-    const [query, setQuery] = useState([
-        {
-            query: 'SELECT * FROM product',
-            time: '10'
-        },
-        {
-            query: 'SELECT * FROM product WHERE id = 1',
-            time: '20'
-        },
-        {
-            query: 'SELECT * FROM product WHERE id = 2',
-            time: '30'
-        },
-        {
-            query: 'SELECT * FROM product WHERE id = 3',
-            time: '40'
-        }
-    ])
+    const [query, setQuery] = useState(props.query)
     const [input, setInput] = useState({
         query: '',
         time: ''
     })
-    const [result, setResult] = useState('')
+    const [result, setResult] = useState(0)
     const [data, setData] = useState([
         {
             id: '',
@@ -100,6 +85,7 @@ const RenderBenchmark = (props: any) => {
         query: '',
         time: ''
     })
+    const [rows, setRows] = useState(0)
 
     const handleClicked = (e: any, index: number) => {
         e.preventDefault()
@@ -125,6 +111,11 @@ const RenderBenchmark = (props: any) => {
             // console.log(res)
             setData(res)
         })
+        const explain = `EXPLAIN ${input.query}`
+        props.fetchData(explain).then((res: any) => {
+            console.log(res[0].rows)
+            setRows(res[0].rows)
+        })
     }
 
     const handleOnChangeNewQuery = (e: any) => {
@@ -143,7 +134,7 @@ const RenderBenchmark = (props: any) => {
     const handleDelete = (e: any) => {
         e.preventDefault()
         const value = e.target.value.split(',')
-        const newQuery = query.filter((item) => item.query !== value[0] && item.time !== value[1])
+        const newQuery = query.filter((item: any) => item.query !== value[0] && item.time !== value[1])
         setQuery(newQuery)
     }
 
@@ -154,7 +145,7 @@ const RenderBenchmark = (props: any) => {
                 <div className='grid grid-cols-3 gap-3'>
                     <div className='col-span-2 flex flex-col gap-1'>
                         <label>Query</label>
-                        <input name='query' type='text' placeholder='Enter query here...' className='border border-gray-300 rounded-lg px-2 py-2 text-sm' value={input.query} onChange={handleOnChange} />
+                        <TextareaAutosize name='query' placeholder='Enter query here...' className='border border-gray-300 rounded-lg px-2 py-2 text-sm' value={input.query} onChange={handleOnChange} />
                     </div>
                     <div className='col-span-1 flex flex-col gap-1'>
                         <label>Time</label>
@@ -166,9 +157,9 @@ const RenderBenchmark = (props: any) => {
                     <p>Our testcase</p>
                     <ul className='flex flex-row flex-wrap' >
                         {
-                            query.map((item, index) => (
+                            query.map((item: any, index: number) => (
                                 <li key={index} className='w-1/4 mb-3'>
-                                    <button type='button' className='mybtn' onClick={(e) => {handleClicked(e, index)}}>
+                                    <button type='button' className='mybtn' onClick={(e) => { handleClicked(e, index) }}>
                                         Testcase {index + 1}
                                     </button>
                                 </li>
@@ -184,11 +175,11 @@ const RenderBenchmark = (props: any) => {
                         <div className='grid grid-cols-3 gap-3'>
                             <div className='col-span-2 flex flex-col gap-1'>
                                 <label>Query</label>
-                                <input name='query' placeholder='Enter query here...' className='border rounded-lg px-2 py-2 text-sm' value={newQuery.query} onChange={handleOnChangeNewQuery} />
+                                <TextareaAutosize name='query' placeholder='Enter query here...' className='border border-gray-300 rounded-lg px-2 py-2 text-sm' value={newQuery.query} onChange={handleOnChangeNewQuery} />
                             </div>
                             <div className='col-span-1 flex flex-col gap-1'>
                                 <label>Time</label>
-                                <input name='time' type='text' placeholder='Enter time here...' className='border rounded-lg px-2 py-2 text-sm' value={newQuery.time} onChange={handleOnChangeNewQuery} />
+                                <input name='time' type='text' placeholder='Enter time here...' className='border border-gray-300 rounded-lg px-2 py-2 text-sm' value={newQuery.time} onChange={handleOnChangeNewQuery} />
                             </div>
                             <button className='mybtn' onClick={handleSubmit}>Submit</button>
                         </div>
@@ -198,10 +189,11 @@ const RenderBenchmark = (props: any) => {
             <div className='flex flex-col col-span-2 gap-3 px-6 py-3'>
                 <p>Result</p>
                 <p>Time elapsed: {result}</p>
+                <p>Rows: {rows} rows</p>
                 <button className='mybtn' onClick={() => { setShowModal(true) }}>Details</button>
                 {
                     showModal &&
-                    <RenderModal data={data} setShowModal={setShowModal}/>
+                    <RenderModal data={data} setShowModal={setShowModal} />
                 }
             </div>
         </div>

@@ -7,7 +7,7 @@ const Sidebar = () => {
 
     return (
         <div>
-            <aside id="default-sidebar" className="top-0 left-0 z-40 w-64 h-screen" aria-label="Sidebar">
+            <aside id="default-sidebar" className="fixed top-0 left-0 z-1 w-64 h-screen" aria-label="Sidebar">
                 <div className="h-full px-3 py-4 overflow-y-auto bg-blue-100">
                     <h1 className='mb-5 text-2xl text-center'>DBMS - 222</h1>
                     <ul className="space-y-2 font-medium">
@@ -35,9 +35,6 @@ const Sidebar = () => {
                                 <li>
                                     <Link href="/mysql/order" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Orders</Link>
                                 </li>
-                                <li>
-                                    <Link href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">etc...</Link>
-                                </li>
                             </ul>
                         </li>
                         <li>
@@ -55,9 +52,6 @@ const Sidebar = () => {
                                 </li>
                                 <li>
                                     <Link href="/cassandra/order" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Orders</Link>
-                                </li>
-                                <li>
-                                    <Link href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">etc...</Link>
                                 </li>
                             </ul>
                         </li>

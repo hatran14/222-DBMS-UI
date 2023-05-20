@@ -68,7 +68,7 @@ const Customer = () => {
                                     {user.email}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {user.mobile}
+                                    {user.phone}
                                 </td>
                                 
                             </tr>
